@@ -10,3 +10,16 @@ data Pessoa = Pessoa String String Genero
 
 data Genero = Masculino | Feminino | Outro 
             deriving Show 
+
+primeiro :: [Int] -> Int 
+primeiro (x:xs) = x
+
+cauda :: [Int] -> [Int]
+cauda (x:xs) = xs
+
+fst3 ::(Int,Int,Int) -> Int 
+
+-- -- data Nat = Zero 
+--             | Suc Nat 
+-- um :: Nat 
+-- um = Suc zero 
