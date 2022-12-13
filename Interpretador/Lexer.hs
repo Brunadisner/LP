@@ -1,5 +1,9 @@
 module Lexer where
 
+data Ty = TBool
+        | TNum 
+
+   
 data Expr = BTrue
           | BFalse
           | Num Int 
