@@ -1,11 +1,6 @@
 module Interpreter where 
 
-data Expr = BTrue
-          | BFalse
-          | Num Int 
-          | Add Expr Expr
-          | And Expr Expr
-          deriving Show 
+import Lexer
 
 step :: Expr -> Maybe Expr
 step (Add (Num n1) (Num n2)) = Just (Num (n1+n2))
@@ -20,4 +15,13 @@ step (And BFalse _) = Just BFalse
 step (And e1 e2) = case step e1 of
                     Just e1'  -> Just (And e1' e2)
                     _         -> Nothing
+
+step (If BTrue e1 _) = Just e1
+step (If BFalse _ e2) = Just e2
+step (If e e1 e2) = case step e of 
+                       Just e' -> Just (If e' e1 e2)
+                       _        -> Nothing     
+
+
+
 step e = Just e  
