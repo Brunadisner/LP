@@ -2,6 +2,19 @@ module Interpreter where
 
 import Lexer
 
+isvalue :: Expr -> Bool 
+isvalue BTrue = True
+isvalue BFalse = True
+isvalue (Num _) = True
+isvalue _ = False 
+
+eval :: Expr -> Expr
+eval e | isvalue e = e 
+       | otherwise = case step e of
+                       Just e' -> eval step e'
+                               -> error 
+
+
 step :: Expr -> Maybe Expr
 step (Add (Num n1) (Num n2)) = Just (Num (n1+n2))
 step (Add (Num n1)e2) = case step e2 of
