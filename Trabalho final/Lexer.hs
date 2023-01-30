@@ -19,6 +19,7 @@ data Expr = BTrue
           | Paren Expr
           | Eq Expr Expr
           | Sub Expr Expr
+          | Mul Expr Expr
           deriving (Show, Eq)
 
 data Token = TokenTrue 
@@ -39,6 +40,7 @@ data Token = TokenTrue
            | TokenNumber
            | TokenEq
            | TokenSub
+           | TokenMul
            deriving Show 
 
 isToken :: Char -> Bool
@@ -49,6 +51,7 @@ lexer [] = []
 lexer ('+':cs) = TokenAdd : lexer cs 
 lexer ('\\':cs) = TokenLam : lexer cs
 lexer ('-':cs) = TokenSub : lexer cs
+lexer ('*':cs) = TokenMul : lexer cs
 lexer (':':cs) = TokenColon : lexer cs
 lexer ('(':cs) = TokenLParen : lexer cs
 lexer (')':cs) = TokenRParen : lexer cs

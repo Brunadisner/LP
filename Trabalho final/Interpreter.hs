@@ -42,6 +42,14 @@ step (Sub e1 e2) = case step e1 of
                      Just e1' -> Just (Sub e1' e2)
                      _        -> Nothing 
 
+step (Mul (Num n1) (Num n2)) = Just (Num (n1 * n2))
+step (Mul (Num n1) e2) = case step e2 of 
+                           Just e2' -> Just (Mul (Num n1) e2')
+                           _        -> Nothing
+step (Mul e1 e2) = case step e1 of 
+                     Just e1' -> Just (Mul e1' e2)
+                     _        -> Nothing 
+
 step (And BTrue e2) = Just e2 
 step (And BFalse _) = Just BFalse 
 step (And e1 e2) = case step e1 of 
