@@ -15,6 +15,8 @@ import Lexer
     '*'         { TokenMul }
     "&&"        { TokenAnd }
     '>'        { TokenMaior }
+    '='        { TokenIgual }
+    '>='        { TokenMrIgual }
     '<'        { TokenMenor }
     "=="        { TokenEq }
     true        { TokenTrue }
@@ -36,7 +38,7 @@ import Lexer
 %left '*'
 %left "&&"
 %left "=="
-%left '>' '<'
+%left '>' '<''=' '>='
 
 %% 
 
@@ -47,6 +49,8 @@ Exp     : num                        { Num $1 }
         | Exp '+' Exp                { Add $1 $3 }
         | Exp '>' Exp                { Maior $1 $3 }
         | Exp '<' Exp                { Menor $1 $3 }
+        | Exp '=' Exp                { Igual $1 $3 }
+        | Exp '>=' Exp                { MrIgual $1 $3 }
         | Exp "&&" Exp               { And $1 $3 }
         | Exp '-' Exp                { Sub $1 $3 }
         | Exp '*' Exp                { Mul $1 $3 }
