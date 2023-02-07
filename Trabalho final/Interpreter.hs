@@ -19,6 +19,7 @@ subst x n (Menor e1 e2) = Menor (subst x n e1) (subst x n e2)
 subst x n (If e e1 e2) = If (subst x n e) (subst x n e1) (subst x n e2)
 subst x n (Paren e) = Paren (subst x n e)
 subst x n (Eq e1 e2) = Eq (subst x n e1) (subst x n e2)
+subst x n (Let v e1 e2) = Let v (subst x n e1) (subst x n e2)
 subst x n e = e 
 
 isvalue :: Expr -> Bool 
@@ -75,6 +76,9 @@ step (App e1@(Lam x t b) e2) | isvalue e2 = Just (subst x e2 b)
                              | otherwise = case step e2 of 
                                              Just e2' -> Just (App e1 e2')
                                              _        -> Nothing 
+step (Let x e1 e2) | isvalue e1 = Just (subst x e1 e2)
+                             | otherwise = Let x (step e1) e2
+
 step (App e1 e2) = case step e1 of 
                      Just e1' -> Just (App e1' e2)
                      _        -> Nothing

@@ -45,6 +45,9 @@ typeof ctx (If e e1 e2) =
 typeof ctx (Var v) = lookup v ctx 
 typeof ctx (Lam v t1 b) = let Just t2 = typeof ((v, t1):ctx) b 
                             in Just (TFun t1 t2)
+
+
+
 typeof ctx (App t1 t2) = case (typeof ctx t1, typeof ctx t2) of 
                            (Just (TFun t11 t12), Just t2) -> if (t11 == t2) then 
                                                                Just t12 

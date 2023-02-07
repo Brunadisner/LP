@@ -36,6 +36,7 @@ data Token = TokenTrue
            | TokenElse 
            | TokenVar String 
            | TokenLam
+           | TokenLet
            | TokenColon
            | TokenArrow 
            | TokenLParen
